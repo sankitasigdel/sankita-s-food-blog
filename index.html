@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Day 2- UI/UX</title>
+        <link rel = "stylesheet" href="style.css"> </head>
+    </head>
+    <body>
+        <div class="home-div">
+            <div class="container">
+                <div class="logo-home ">
+                    <div class="logo-div">
+                        <img id= "logo" src="https://img.lovepik.com/free-png/20210924/lovepik-burger-png-image_401316034_wh1200.png" alt="logo">
+                        <div class="name">
+        
+                            <h1> Sankita's</h1>
+                            <h4>Food Blog</h4>
+                        </div>
+                    </div>
+                    <div class="nav-bar">
+                        <a href="index.html">
+                            <button id="home"><h2>Home</h2></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main-container ">
+            <div class="banner-container container">
+                <img id= "banner-img" src="https://wallpapershome.com/images/pages/pic_h/16604.jpg" alt="banner">
+                <div class="top-left back-text">  
+                    <h3> Title : Where to find Burger in Town?</h3>
+                    <h4> Date :  March 23 , 2023 | Sankita Sigdel</h4>
+                </div>
+            </div>
+
+            <div class="blog-container container">
+                <div class="blog-title-container">
+                    <h3>My Blogs</h3>
+    
+                    <div>
+                        <input id="search-input" placeholder="Search blog" />
+                        <button onclick="filter()">Search</button>
+                    </div>
+                </div>
+    
+                <div id="blog-list-container">
+                </div>
+            </div>
+            <div class="footer-shadow">
+                <footer>
+                    <p>&copy; 2023 Sankita's Food Blog. All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+        
+
+        <script src="myRecipes.js"></script>
+        <script>
+            let globalDataRecord = []
+            function getBlog() {
+                globalDataRecord = [...myRecipes]
+            }
+
+            getBlog();
+
+            const productContainer = document.getElementById(
+                    "blog-list-container"
+                );
+                
+                globalDataRecord.forEach((item) => {
+                    const singleProduct = `
+                    <a target="blank" href="detail.html?title=${item.title}" onclick="sendValue(event, ${item.title})">
+                        <div class="blog-card">
+                        <img
+                        class="blog-image"
+                        src="${item.image}"
+                        />
+                        <h4 style="padding: 5px">${item.title}</h4>
+                        <p style="padding: 5px">By: ${item.author} </p>
+                        <p style="padding: 5px">Date: ${item.date}</p>
+                    </div>
+                    </a>`;
+
+                    productContainer.innerHTML += singleProduct
+                });
+            
+            function sendValue(event, value) {
+                event.preventDefault(); // prevent the link from navigating to the href
+                window.location.href = 'detail.html?title=' + value; // navigate to the other page with the value included as a query string parameter
+            }
+
+            const filter = () => {
+                const searchInput = document.getElementById("search-input")
+                globalDataRecord = globalDataRecord.filter(item => {
+                    if (item.title.includes(searchInput.value)) {
+                        return true;
+                    }else {
+                        return false
+                    }
+                })
+
+                const productContainer = document.getElementById(
+                    "blog-list-container"
+                );
+                productContainer.innerHTML = "";
+                globalDataRecord.forEach((item) => {
+                    const singleProduct = `
+                    <div class="blog-card">
+                        <img
+                        class="blog-image"
+                        src="${item.image}"
+                        />
+                        <h4 style="padding: 5px">${item.title}</h4>
+                        <p style="padding: 5px">By: ${item.author} </p>
+                        <p style="padding: 5px">Date: ${item.date}</p>
+                    </div>`;
+
+                    productContainer.innerHTML += singleProduct
+                });
+            };
+        </script>
+    </body>
+</html>

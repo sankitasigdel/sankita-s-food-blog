@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Day 2- UI/UX</title>
+        <link rel = "stylesheet" href="style2.css"> </head>
+    </head>
+    <body>
+        <div class="home-div">
+            <div class="container">
+                <div class="logo-home ">
+                    <div class="logo-div">
+                        <img id= "logo" src="https://img.lovepik.com/free-png/20210924/lovepik-burger-png-image_401316034_wh1200.png" alt="logo">
+                        <div class="name">
+        
+                            <h1> Sankita's</h1>
+                            <h4>Food Blog</h4>
+                        </div>
+                    </div>
+                    <div class="nav-bar">
+                        <a href="index.html">
+                            <button id="home"><h2>Home</h2></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main-container container">
+            <div class="banner-container" id="banner-content">
+
+            </div>
+            <div id="blog-content-container">
+                <div id = "content">
+
+                </div>
+                <div id="others">
+                    <h4> Read More..</h4> <br>
+                </div>
+            </div>
+        </div>
+        <div class="footer-shadow">
+            <footer>
+                <p>&copy; 2023 Sankita's Food Blog. All rights reserved.</p>
+            </footer>
+        </div>
+
+
+        <script src="myRecipes.js"></script>
+        <script>
+            let globalDataRecord = []
+            let oneRecord = []
+
+            function getBlog() {
+                globalDataRecord = [...myRecipes]
+            }
+
+            getBlog();
+            
+            function getMainData () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const title = urlParams.get('title');
+                console.log(title)
+                const item2 = globalDataRecord.find(item2 =>item2.title == title);
+                oneRecord = item2
+            }
+
+            getMainData ();
+
+            const productContainer = document.getElementById(
+                    "banner-content"
+                );
+
+            //adding banner with blog image
+            const singleProduct = `
+                    <div>
+                    <img id= "banner-img" src="${oneRecord.image}" alt="banner">
+                <div class="top-left back-text">  
+                    <h3> ${oneRecord.title}</h3>
+                    <h4> Date :  ${oneRecord.date} | ${oneRecord.author}</h4>
+                </div>
+                </div>`;
+
+            productContainer.innerHTML += singleProduct
+
+            //Adding content to content div
+            const anotherContent = document.getElementById(
+                    "content"
+            );
+
+            const blogContent = `
+                    <p>${oneRecord.content} </p>`;
+            
+            anotherContent.innerHTML += blogContent
+
+            //Adding list to others div
+
+            const other = document.getElementById(
+                    "others"
+            );
+
+            const all = `
+                    <p>${oneRecord.content} </p>`;
+            
+           
+
+            globalDataRecord.forEach((item) => {
+            const all = `
+            <a href="detail.html?title=${item.title}" onclick="sendValue(event, ${item.title})">
+                <h5 style="padding: 5px">${item.title}</h5>
+            </a>
+                        `;
+
+            other.innerHTML += all
+            });
+            
+        </script>
+    </body>
+</html>
