@@ -94,7 +94,7 @@
             const filter = () => {
                 const searchInput = document.getElementById("search-input")
                 globalDataRecord = globalDataRecord.filter(item => {
-                    if (item.title.includes(searchInput.value)) {
+                    if (item.title.toLowerCase().includes(searchInput.value.toLowerCase())) {
                         return true;
                     }else {
                         return false
